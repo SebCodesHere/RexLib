@@ -9,9 +9,8 @@ if type(RexLib) ~= "table" then
 end
 
 print("Time:", RexLib.getTime())
-print("Percent (25 of 100):", RexLib.inpercent(25, 100))
+print("Percent:", RexLib.inpercent(25, 100))
 
-print("Waiting 10 seconds...")
 RexLib.wait(10)
 
 local t = {1, 2, 3}
