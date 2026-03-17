@@ -1,3 +1,4 @@
+-- rexlib.lua
 local RexLib = {}
 
 function RexLib.getTime()
@@ -10,7 +11,7 @@ function RexLib.inpercent(value,maxvalue)
 end
 
 function RexLib.clonetable(TableName)
-    if TableName == table then
+    if type(TableName) == "table" then
         local clonetable = {}
         for i, v in pairs(TableName) do
             if v then
@@ -19,7 +20,8 @@ function RexLib.clonetable(TableName)
         end
         return clonetable
     else
-        return print("NOT A TABLE!")
+        print("NOT A TABLE!")
+        return {}
     end
 end
 

@@ -1,41 +1,5 @@
 @echo off
-setlocal
-
-set VERSION=1.0-1
-set GITHUB_TAG=1.0-1  REM no 'v'
-set INSTALL_DIR=%USERPROFILE%\.rexlib
-set GITHUB_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/%GITHUB_TAG%/rexlib.lua
-
-echo Installing RexLib %VERSION% locally...
-
-if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
-
-REM Check if LuaRocks exists
-where luarocks >nul 2>nul
-if errorlevel 1 (
-    echo LuaRocks not found. Please install LuaRocks first: https://luarocks.org/
-    pause
-    exit /b
-)
-
-REM Download rexlib.lua
-powershell -Command "Invoke-WebRequest '%GITHUB_URL%' -OutFile '%INSTALL_DIR%\rexlib.lua'"
-
-REM Generate rockspec
-(
-echo package = "rexlib"
-echo version = "%VERSION%"
-echo source = { url = "%GITHUB_URL%" }
-echo description = { summary = "RexLib Lua utility functions", detailed = "RexLib provides utility functions: getTime, inpercent, clonetable", license = "Apache License 2.0" }
-echo dependencies = {}
-echo build = { type = "builtin", modules = { rexlib = "rexlib.lua" } }
-) > "%INSTALL_DIR%\rexlib-%VERSION%.rockspec"
-
-REM Change into install dir before running LuaRocks
-cd /d "%INSTALL_DIR%"
-
-REM Install via LuaRocks locally
-luarocks make "%INSTALL_DIR%\rexlib-%VERSION%.rockspec" --local
-
-echo RexLib v%VERSION% installed locally! You can now use require("rexlib") anywhere.
+if not exist "%USERPROFILE%\.rexlib" mkdir "%USERPROFILE%\.rexlib"
+powershell -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0.0/rexlib.lua' -OutFile $env:USERPROFILE\.rexlib\rexlib.lua"
+echo RexLib v1.0.0 installed to %USERPROFILE%\.rexlib
 pause
