@@ -2,14 +2,15 @@
 setlocal
 
 set VERSION=1.0-1
+set GITHUB_TAG=1.0-1  REM no 'v'
 set INSTALL_DIR=%USERPROFILE%\.rexlib
-set GITHUB_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0-1/rexlib.lua
+set GITHUB_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/%GITHUB_TAG%/rexlib.lua
 
-echo Installing RexLib %VERSION%...
+echo Installing RexLib %VERSION% locally...
 
 if not exist "%INSTALL_DIR%" mkdir "%INSTALL_DIR%"
 
-REM Check LuaRocks
+REM Check if LuaRocks exists
 where luarocks >nul 2>nul
 if errorlevel 1 (
     echo LuaRocks not found. Please install LuaRocks first: https://luarocks.org/
@@ -30,8 +31,8 @@ echo dependencies = {}
 echo build = { type = "builtin", modules = { rexlib = "rexlib.lua" } }
 ) > "%INSTALL_DIR%\rexlib-%VERSION%.rockspec"
 
-REM Install via LuaRocks
-luarocks make "%INSTALL_DIR%\rexlib-%VERSION%.rockspec"
+REM Install via LuaRocks locally
+luarocks make "%INSTALL_DIR%\rexlib-%VERSION%.rockspec" --local
 
-echo RexLib v%VERSION% installed! You can now use require("rexlib") anywhere.
+echo RexLib v%VERSION% installed locally! You can now use require("rexlib") anywhere.
 pause
