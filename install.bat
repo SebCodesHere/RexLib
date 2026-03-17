@@ -10,7 +10,7 @@ set INSTALL_DIR=%USERPROFILE%\.rexlib
 mkdir "%INSTALL_DIR%"
 
 :: TAG-specific stable
-set STABLE_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/v1.0.0/rexlib.lua
+set STABLE_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0.0/rexlib.lua
 set LATEST_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua
 
 if "%choice%"=="i" (

@@ -10,7 +10,7 @@ INSTALL_DIR="$HOME/.rexlib"
 mkdir -p "$INSTALL_DIR"
 
 # TAG-specific stable
-STABLE_URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/v1.0.0/rexlib.lua"
+STABLE_URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0.0/rexlib.lua"
 LATEST_URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua"
 
 if [ "$choice" == "i" ]; then
