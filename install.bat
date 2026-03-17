@@ -31,6 +31,9 @@ echo dependencies = {}
 echo build = { type = "builtin", modules = { rexlib = "rexlib.lua" } }
 ) > "%INSTALL_DIR%\rexlib-%VERSION%.rockspec"
 
+REM Change into install dir before running LuaRocks
+cd /d "%INSTALL_DIR%"
+
 REM Install via LuaRocks locally
 luarocks make "%INSTALL_DIR%\rexlib-%VERSION%.rockspec" --local
 

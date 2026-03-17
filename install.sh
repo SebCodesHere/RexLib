@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION="1.0-1"
-GITHUB_TAG="1.0-1"  # no 'v' prefix
+GITHUB_TAG="1.0-1"  # no 'v'
 GITHUB_URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/$GITHUB_TAG/rexlib.lua"
 INSTALL_DIR="$HOME/.rexlib"
 
@@ -42,7 +42,10 @@ build = {
 }
 EOL
 
-# Install via LuaRocks locally to avoid permissions issues
+# Change into install dir before running LuaRocks
+cd "$INSTALL_DIR" || exit 1
+
+# Install via LuaRocks locally
 luarocks make "$ROCKSPEC" --local
 
 echo "RexLib v$VERSION installed locally! You can now use require('rexlib') anywhere."
