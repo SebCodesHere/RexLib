@@ -22,3 +22,5 @@ function RexLib.clonetable(TableName)
         return print("NOT A TABLE!")
     end
 end
+
+return RexLib
