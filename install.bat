@@ -3,7 +3,7 @@ setlocal
 
 set VERSION=1.0-1
 set INSTALL_DIR=%USERPROFILE%\.rexlib
-set GITHUB_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/v1.0.0/rexlib.lua
+set GITHUB_URL=https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0-1/rexlib.lua
 
 echo Installing RexLib %VERSION%...
 

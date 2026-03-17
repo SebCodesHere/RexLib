@@ -1,7 +1,7 @@
 #!/bin/bash
 
 VERSION="1.0-1"
-GITHUB_URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/v1.0.0/rexlib.lua"
+GITHUB_URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0-1/rexlib.lua"
 INSTALL_DIR="$HOME/.rexlib"
 
 echo "Installing RexLib v$VERSION..."
