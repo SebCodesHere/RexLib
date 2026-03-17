@@ -5,6 +5,20 @@ function RexLib.getTime()
 end
 
 function RexLib.inpercent(value,maxvalue)
-local percentage = maxvalue/value*100
-return percentage
+    local percentage = maxvalue/value*100
+    return percentage
+end
+
+function RexLib.clonetable(TableName)
+    if TableName == table then
+        local clonetable = {}
+        for i, v in pairs(TableName) do
+            if v then
+                table.insert(clonetable,v)
+            end
+        end
+        return clonetable
+    else
+        return print("NOT A TABLE!")
+    end
 end
