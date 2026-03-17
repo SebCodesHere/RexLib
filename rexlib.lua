@@ -1,16 +1,16 @@
 -- rexlib.lua
-local RexLib = {}
+local rexlib = {}
 
-function RexLib.getTime()
+function rexlib.getTime()
     return os.date("%H:%M:%S")
 end
 
-function RexLib.inpercent(value,maxvalue)
+function rexlib.inpercent(value,maxvalue)
     local percentage = maxvalue/value*100
     return percentage
 end
 
-function RexLib.clonetable(TableName)
+function rexlib.clonetable(TableName)
     if type(TableName) == "table" then
         local clonetable = {}
         for i, v in pairs(TableName) do
@@ -25,4 +25,4 @@ function RexLib.clonetable(TableName)
     end
 end
 
-return RexLib
+return rexlib
