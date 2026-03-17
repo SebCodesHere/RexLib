@@ -6,7 +6,7 @@ function rexlib.getTime()
 end
 
 function rexlib.inpercent(value,maxvalue)
-    local percentage = maxvalue/value*100
+    local percentage = (value/maxvalue)*100
     return percentage
 end
 
@@ -15,7 +15,7 @@ function rexlib.clonetable(TableName)
         local clonetable = {}
         for i, v in pairs(TableName) do
             if v then
-                table.insert(clonetable,v)
+                clonetable[i] = v
             end
         end
         return clonetable
@@ -25,4 +25,12 @@ function rexlib.clonetable(TableName)
     end
 end
 
+function rexlib.wait(time)
+    if type(time) == "number"   then
+       local start = os.clock()
+       repeat
+        
+       until os.clock() -start > time
+    end
+end
 return rexlib
