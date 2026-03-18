@@ -1,46 +1,47 @@
-#!/bin/bash
+@echo off
+title RexLib Installer
+color 0B
 
-VERSION="1.0.0"
-URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua"
-INSTALL_DIR="/RexLib"
+REM --- Universal user folder ---
+set INSTALL_DIR=%USERPROFILE%\.rexlib
 
-clear
-echo "=================================="
-echo "        RexLib Installer"
-echo "=================================="
-echo
-echo "[*] Installing RexLib v$VERSION..."
+cls
+echo ==================================
+echo        RexLib Installer
+echo ==================================
+echo.
+echo [*] Installing RexLib v1.0.0...
 
-# Make folder if it doesn't exist
-if [ ! -d "$INSTALL_DIR" ]; then
-    sudo mkdir -p "$INSTALL_DIR"
-fi
+REM --- Make folder if it doesn't exist ---
+if not exist "%INSTALL_DIR%" (
+    mkdir "%INSTALL_DIR%"
+)
 
-# Animated loading bar for 5 seconds
-echo
-echo "[*] Downloading..."
-BAR="[                    ]"
-for i in {1..20}; do
-    sleep 0.25
-    BAR="["
-    for j in $(seq 1 $i); do BAR="${BAR}#"; done
-    for j in $(seq $i 19); do BAR="${BAR} "; done
-    BAR="${BAR}]"
-    PERCENT=$((i*5))
-    printf "\r%s %d%%" "$BAR" "$PERCENT"
-done
-echo
-echo "[*] Fetching file..."
+REM --- Simple loading bar for 5 seconds ---
+set /a total=20
+echo.
+for /L %%i in (1,1,%total%) do (
+    set /a percent=(%%i*100/%total%)
+    set bar=####################
+    set "bar=!bar:~0,%%i!                    "
+    <nul set /p ="[!bar!] !percent!%%"
+    timeout /t 0.25 >nul
+    echo.
+)
+echo.
 
-# Download the file
-sudo curl -sL "$URL" -o "$INSTALL_DIR/rexlib.lua"
+REM --- Download rexlib.lua ---
+powershell -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua' -OutFile '%INSTALL_DIR%\rexlib.lua'"
 
-if [ $? -eq 0 ]; then
-    echo "[✓] Installed RexLib to $INSTALL_DIR/rexlib.lua"
-    echo
-    echo "Use in Lua scripts with:"
-    echo "package.path = package.path .. ';/RexLib/?.lua'"
-    echo "require('rexlib')"
-else
-    echo "[X] Download failed"
-fi
+if %ERRORLEVEL%==0 (
+    echo.
+    echo [✓] Installed RexLib to %INSTALL_DIR%\rexlib.lua
+    echo.
+    echo Use in Lua scripts with:
+    echo package.path = package.path .. ';%USERPROFILE%\.rexlib\?.lua'
+    echo require('rexlib')
+) else (
+    echo [X] Download failed
+)
+
+pause
