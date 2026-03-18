@@ -1,10 +1,6 @@
 -- rexlib.lua
 local rexlib = {}
 
-function rexlib.getTime()
-    return os.date("%H:%M:%S")
-end
-
 function rexlib.inPercent(value,maxvalue)
     local percentage = (value/maxvalue)*100
     return percentage
