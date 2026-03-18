@@ -1,58 +1,46 @@
-@echo off
-title RexLib Installer
-color 0B
-setlocal enabledelayedexpansion
+#!/bin/bash
 
-cls
-echo ==================================
-echo        RexLib Installer
-echo ==================================
-echo.
+VERSION="1.0.0"
+URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua"
+INSTALL_DIR="/RexLib"
 
-echo [*] Installing RexLib v1.0.0...
-echo.
+clear
+echo "=================================="
+echo "        RexLib Installer"
+echo "=================================="
+echo
+echo "[*] Installing RexLib v$VERSION..."
 
-if not exist "%USERPROFILE%\.rexlib" (
-    mkdir "%USERPROFILE%\.rexlib"
-)
+# Make folder if it doesn't exist
+if [ ! -d "$INSTALL_DIR" ]; then
+    sudo mkdir -p "$INSTALL_DIR"
+fi
 
-echo [*] Downloading RexLib...
-echo.
+# Animated loading bar for 5 seconds
+echo
+echo "[*] Downloading..."
+BAR="[                    ]"
+for i in {1..20}; do
+    sleep 0.25
+    BAR="["
+    for j in $(seq 1 $i); do BAR="${BAR}#"; done
+    for j in $(seq $i 19); do BAR="${BAR} "; done
+    BAR="${BAR}]"
+    PERCENT=$((i*5))
+    printf "\r%s %d%%" "$BAR" "$PERCENT"
+done
+echo
+echo "[*] Fetching file..."
 
-set bar=
-set count=0
+# Download the file
+sudo curl -sL "$URL" -o "$INSTALL_DIR/rexlib.lua"
 
-for /L %%i in (1,1,20) do (
-    set /a count+=5
-    set bar=!bar!#
-
-    cls
-    echo ==================================
-    echo        RexLib Installer
-    echo ==================================
-    echo.
-    echo [*] Installing RexLib v1.0.0...
-    echo.
-    echo [*] Downloading RexLib...
-    echo.
-    echo [!bar!                    ] !count!%%
-    
-    timeout /t 0 >nul
-    ping -n 2 localhost >nul
-)
-
-echo.
-
-powershell -Command "try { Invoke-WebRequest 'https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0.0/rexlib.lua' -OutFile $env:USERPROFILE\.rexlib\rexlib.lua -ErrorAction Stop; exit 0 } catch { exit 1 }"
-
-if %errorlevel%==0 (
-    echo [✓] Download complete
-    echo [✓] Installed to %USERPROFILE%\.rexlib
-    echo.
-    echo RexLib is ready to use!
-) else (
-    echo [X] Download failed
-)
-
-echo.
-pause
+if [ $? -eq 0 ]; then
+    echo "[✓] Installed RexLib to $INSTALL_DIR/rexlib.lua"
+    echo
+    echo "Use in Lua scripts with:"
+    echo "package.path = package.path .. ';/RexLib/?.lua'"
+    echo "require('rexlib')"
+else
+    echo "[X] Download failed"
+fi
