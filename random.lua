@@ -1,4 +1,6 @@
---local RexLib = require("rexlib")
+local RexLib = require("rexlib")
+
+RexLib.repeatFunction(RexLib.getTime,5)
 
 --print("Current time:", RexLib.getTime())
 --print("Percent:", RexLib.inpercent(25,100))
