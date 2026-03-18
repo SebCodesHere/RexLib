@@ -1,45 +1,46 @@
 #!/bin/bash
 
-# Colors
-GREEN="\033[1;32m"
-CYAN="\033[1;36m"
-RESET="\033[0m"
+VERSION="1.0.0"
+URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua"
+INSTALL_DIR="/RexLib"
 
 clear
-
-echo -e "${CYAN}"
 echo "=================================="
 echo "        RexLib Installer"
 echo "=================================="
-echo -e "${RESET}"
-
-echo -e "${CYAN}[*] Installing RexLib v1.0.0...${RESET}"
 echo
+echo "[*] Installing RexLib v$VERSION..."
 
-mkdir -p ~/.rexlib
+# Make folder if it doesn't exist
+if [ ! -d "$INSTALL_DIR" ]; then
+    sudo mkdir -p "$INSTALL_DIR"
+fi
 
-echo -e "${CYAN}[*] Downloading RexLib...${RESET}"
+# Animated loading bar for 5 seconds
 echo
-
-# Loading bar (5 sec, animated)
-bar=""
+echo "[*] Downloading..."
+BAR="[                    ]"
 for i in {1..20}; do
-    percent=$((i * 5))
-    bar="${bar}#"
-    
-    printf "\r[%-20s] %d%%" "$bar" "$percent"
     sleep 0.25
+    BAR="["
+    for j in $(seq 1 $i); do BAR="${BAR}#"; done
+    for j in $(seq $i 19); do BAR="${BAR} "; done
+    BAR="${BAR}]"
+    PERCENT=$((i*5))
+    printf "\r%s %d%%" "$BAR" "$PERCENT"
 done
-
 echo
-echo
+echo "[*] Fetching file..."
 
-# Actual download
-if curl -sL https://raw.githubusercontent.com/SebCodesHere/RexLib/1.0.0/rexlib.lua -o ~/.rexlib/rexlib.lua; then
-    echo -e "${GREEN}[✓] Download complete${RESET}"
-    echo -e "${GREEN}[✓] Installed to ~/.rexlib${RESET}"
+# Download the file
+sudo curl -sL "$URL" -o "$INSTALL_DIR/rexlib.lua"
+
+if [ $? -eq 0 ]; then
+    echo "[✓] Installed RexLib to $INSTALL_DIR/rexlib.lua"
     echo
-    echo -e "${GREEN}RexLib is ready to use!${RESET}"
+    echo "Use in Lua scripts with:"
+    echo "package.path = package.path .. ';/RexLib/?.lua'"
+    echo "require('rexlib')"
 else
     echo "[X] Download failed"
 fi
