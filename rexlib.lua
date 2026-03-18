@@ -20,8 +20,7 @@ function rexlib.cloneTable(TableName)
         end
         return clonetable
     else
-        print("NOT A TABLE!")
-        return {}
+        return print("NOT A TABLE!")
     end
 end
 
@@ -33,4 +32,16 @@ function rexlib.wait(time)
        until os.clock() -start > time
     end
 end
+
+function rexlib.filter(t,condition)
+    if type(t) ~= "table" then end
+    local metcondition = {}
+    for i,v in pairs(t) do
+        if condition(v) then
+            table.insert(metcondition,v)
+        end
+    end
+    return metcondition
+end
+
 return rexlib
