@@ -5,12 +5,12 @@ function rexlib.getTime()
     return os.date("%H:%M:%S")
 end
 
-function rexlib.inpercent(value,maxvalue)
+function rexlib.inPercent(value,maxvalue)
     local percentage = (value/maxvalue)*100
     return percentage
 end
 
-function rexlib.clonetable(TableName)
+function rexlib.cloneTable(TableName)
     if type(TableName) == "table" then
         local clonetable = {}
         for i, v in pairs(TableName) do
