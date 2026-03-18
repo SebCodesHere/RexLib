@@ -4,11 +4,10 @@
  Rexlib commands look like this:
  Rexlib."commandname"(--insert value if needed)
 Commands:
-  Rexlib.getTime()--returns current time
   Rexlib.inPercent(value,maxvalue)--returns a percentage
   Rexlib.cloneTable(table)--creates a clone of a table
   Rexlib.wait(seconds)--waits a certain ammount of seconds before running more code
-
+  Rexlib.repeatFunction(function to repeat,how many times to repeat)--repeats a function certain ammount of time, if set to -1 it will repeat forever
 
 
 
