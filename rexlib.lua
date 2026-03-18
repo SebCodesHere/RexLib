@@ -44,4 +44,20 @@ function rexlib.filter(t,condition)
     return metcondition
 end
 
+function rexlib.repeatFunction(fun,ammount)
+    if type(fun) ~= "function" then return print("Not A Function") end
+    if type(ammount) ~= "number" then print("Not A Number") end
+    if ammount ~= -1 then
+        for i = 1,ammount do
+            fun()
+            print("functioning")
+        end
+    elseif ammount == -1 then
+        while  true do
+            rexlib.wait(0.2)
+            fun()
+        end
+    end
+end
+
 return rexlib
