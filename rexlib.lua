@@ -68,4 +68,11 @@ if type(t) == "table" and type(remove) == "table" then
         end
     end
 end
+
+function rexlib.listTable(t)
+    for i,v in pairs(t) do
+        print(v)
+    end
+end
+
 return rexlib
