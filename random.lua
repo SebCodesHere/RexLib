@@ -1,6 +1,12 @@
-local RexLib = require("rexlib")
+RexLib = require("rexlib.lua")
+table1 = {"apple","monkey","car"}
+tableremove = {"car","monkey"}
 
-RexLib.repeatFunction(RexLib.getTime,5)
+RexLib.removeFromTable(table1,tableremove)
+for i,v in pairs(table1) do
+    print(v)
+end
+--RexLib.repeatFunction(RexLib.getTime,5)
 
 --print("Current time:", RexLib.getTime())
 --print("Percent:", RexLib.inpercent(25,100))
