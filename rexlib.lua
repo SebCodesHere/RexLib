@@ -56,4 +56,16 @@ function rexlib.repeatFunction(fun,ammount)
     end
 end
 
+function rexlib.removeFromTable(t,remove)
+if type(t) == "table" and type(remove) == "table" then
+  local toRemove = {}
+    for _, v in pairs(remove) do toRemove[v] = true end
+
+    for i = #t, 1, -1 do
+        if toRemove[t[i]] then
+            table.remove(t, i)
+            end
+        end
+    end
+end
 return rexlib
