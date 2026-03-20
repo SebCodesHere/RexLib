@@ -30,13 +30,9 @@ powershell -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/SebCod
 
 if %ERRORLEVEL%==0 (
     echo [✓] Installed RexLib to %INSTALL_DIR%\rexlib.lua
-    echo.
-    echo Use in Lua scripts with:
-    echo package.path = package.path .. ';%USERPROFILE%\.rexlib\?.lua'
-    echo local rex = require('rexlib')
 ) else (
     echo.
-    echo [X] Download failed. Please check your internet connection.
+    echo [X] Download failed. Please check your internet connection. Maybe installed just check idk .bat just lags. 
 )
 
 echo.
