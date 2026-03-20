@@ -2,45 +2,44 @@
 
 VERSION="1.0.0"
 URL="https://raw.githubusercontent.com/SebCodesHere/RexLib/main/rexlib.lua"
-INSTALL_DIR="/RexLib"
+# Use $HOME for a local, non-root installation
+INSTALL_DIR="$HOME/.rexlib"
 
 clear
 echo "=================================="
 echo "        RexLib Installer"
 echo "=================================="
 echo
-echo "[*] Installing RexLib v$VERSION..."
 
-# Make folder if it doesn't exist
-if [ ! -d "$INSTALL_DIR" ]; then
-    sudo mkdir -p "$INSTALL_DIR"
+# --- Clean up existing installation ---
+if [ -d "$INSTALL_DIR" ]; then
+    echo "[*] Cleaning up old version at $INSTALL_DIR..."
+    rm -rf "$INSTALL_DIR"
 fi
 
-# Animated loading bar for 5 seconds
-echo
-echo "[*] Downloading..."
-BAR="[                    ]"
-for i in {1..20}; do
-    sleep 0.25
-    BAR="["
-    for j in $(seq 1 $i); do BAR="${BAR}#"; done
-    for j in $(seq $i 19); do BAR="${BAR} "; done
-    BAR="${BAR}]"
-    PERCENT=$((i*5))
-    printf "\r%s %d%%" "$BAR" "$PERCENT"
-done
-echo
-echo "[*] Fetching file..."
+echo "[*] Installing RexLib v$VERSION..."
 
-# Download the file
-sudo curl -sL "$URL" -o "$INSTALL_DIR/rexlib.lua"
+# Create the directory (no sudo needed now!)
+mkdir -p "$INSTALL_DIR"
+
+# --- Animated loading bar ---
+for i in {1..20}; do
+    PERCENT=$((i * 5))
+    BAR=$(printf "%${i}s" | tr ' ' '#')
+    printf "\r[*] Progress: [%-20s] %d%%" "$BAR" "$PERCENT"
+    sleep 0.05
+done
+echo -e "\n[*] Fetching file..."
+
+# --- Download the file ---
+curl -sL "$URL" -o "$INSTALL_DIR/rexlib.lua"
 
 if [ $? -eq 0 ]; then
-    echo "[✓] Installed RexLib to $INSTALL_DIR/rexlib.lua"
+    echo -e "\n[✓] Installed RexLib to $INSTALL_DIR/rexlib.lua"
     echo
     echo "Use in Lua scripts with:"
-    echo "package.path = package.path .. ';/RexLib/?.lua'"
-    echo "require('rexlib')"
+    echo "package.path = package.path .. ';$HOME/.rexlib/?.lua'"
+    echo "local rex = require('rexlib')"
 else
-    echo "[X] Download failed"
+    echo -e "\n[X] Download failed. Please check your connection."
 fi
